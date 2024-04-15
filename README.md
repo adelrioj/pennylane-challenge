@@ -32,6 +32,13 @@ rails s
 
 The project will be available at [http://localhost:3000](http://localhost:3000)
 
+## Deployment in fly.io
+This project is deployed in fly.io. You can access it [here](https://pennylane-challenge.fly.dev/)
+
+To deploy a new version of the project, you can run the following command:
+```
+fly deploy
+```
 
 ## User Stories
 I propose 3 very simple user stories for this feature. No need to say, all features should have tests if it applies, and will not pass code review if not. 

@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'pennylane-challenge-morning-wave-6874'
+app = 'pennylane-challenge'
 primary_region = 'mad'
 console_command = '/rails/bin/rails console'
 
@@ -36,3 +36,4 @@ console_command = '/rails/bin/rails console'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+  swap_size_mb = 1024
