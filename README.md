@@ -76,7 +76,6 @@ URL that contains the image of the prepared dish.
 should include an id and timestamps.
 
 Dev Hints:
-Given that I'm using PostgreSQL, let's take advantage of the built-in [text search features](https://www.postgresql.org/docs/current/textsearch-tables.html#TEXTSEARCH-TABLES-SEARCH).
 Use jsonb as the ingredients field type. jsonb takes more time to build and takes more disk space, but it's faster to query thank json. check [here](https://stackoverflow.com/questions/22654170/explanation-of-jsonb-introduced-by-postgresql).
 
 ACs:
@@ -88,10 +87,13 @@ The seeds file should be idempotent, meaning that it should not create duplicate
 As a user, I want the service to suggest recipes that I can make with the ingredients I have at home.
 To make this possible, we need to implement a search feature that will return the most relevant recipes based on the ingredients the user has in their inventory. 
 This will include the necessary views to make this feature work.
-To preserve performance, we will only show one recipe at a time.
+To preserve performance, we will only show one recipe at a time. The recipe will be randomly selected from the list of recipes that match the user's ingredients.
 
 UI Mockup:
 (here I would include several mockups of the UI and discuss with the team the best approach)
+
+Dev Hints:
+Given that I'm using PostgreSQL, let's take advantage of the built-in [text search features](https://www.postgresql.org/docs/current/textsearch-tables.html#TEXTSEARCH-TABLES-SEARCH).
 
 ACs:
 The user should be able to write a list of ingredients they have at home in the input text box.
