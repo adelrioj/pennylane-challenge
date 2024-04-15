@@ -13,8 +13,28 @@ By prototype, we mean:
 
 We expect to use this prototype as a starting point to discuss current implementation details, as well as ideas for improvement.
 
+## Setup and dependencies
+To run this project in a local machine, you need to have the following dependencies installed:
+- Ruby 3.3.0
+- PostgreSQL 14
+
+After installing the dependencies, you can run the following commands to setup the project:
+```
+gem install bundler
+bundle install
+rails db:setup
+```
+
+to run the project, simply run:
+```
+rails s
+``` 
+
+The project will be available at [http://localhost:3000](http://localhost:3000)
+
+
 ## User Stories
-I propose 3 very simple user stories for this feature. No need to say, all features should be tested if it applies, and will not pass review if not. 
+I propose 3 very simple user stories for this feature. No need to say, all features should have tests if it applies, and will not pass code review if not. 
 
 #### User Story: System Setup 
 As a developer, I want to set up the basic system infrastructure including the database, server, and application framework. This setup should include the necessary configurations for development, testing, and production environments.
@@ -30,21 +50,18 @@ The application should use fly.io.
 
 #### User Story: Ingredient Inventory 
 As a developer, I want to create the necessary models to manage the user's ingredient inventory. 
-This inventory comes from  the english language recipes provided by the challenge in https://pennylane-interviewing-assets-20220328.s3.eu-west-1.amazonaws.com/recipes-en.json.gz
+This inventory comes from  the english language recipes provided by the challenge [here](https://pennylane-interviewing-assets-20220328.s3.eu-west-1.amazonaws.com/recipes-en.json.gz). 
 For the sake of simplicity, we will only consider the data structure provided by the file, without improvements or modifications.
 
-
-Models:
-All models should include an id and timestamps.
-
-Recipe
+Model description: Recipe
 - title: string. 
 The name of the recipe.
 - cook_time: integer. Represents minutes. Always positive. 
 The time it takes to cook the recipe.
 - prep_time: integer. Represents minutes. Always positive. 
 The time it takes to prepare the recipe before cooking.
-- ingredients: list of Ingredient.
+- ingredients: jsonb
+  Contains a json with a list of ingredients, including the quantity. e.g: "1 cup of sugar", "2 eggs".
 - ratings: decimal. between 0 and 5. allow two decimals. 
 The average rating of the recipe.
 - cuisine: string. 
@@ -56,13 +73,16 @@ The name of the author of the recipe.
 - image: string. 
 URL that contains the image of the prepared dish.
 
-Ingredient
-- name: string
-Contains the name of the ingredient, and the quantity. e.g: "1 cup of sugar", "2 eggs".
+should include an id and timestamps.
+
+Dev Hints:
+Given that I'm using PostgreSQL, let's take advantage of the built-in [text search features](https://www.postgresql.org/docs/current/textsearch-tables.html#TEXTSEARCH-TABLES-SEARCH).
+Use jsonb as the ingredients field type. jsonb takes more time to build and takes more disk space, but it's faster to query thank json. check [here](https://stackoverflow.com/questions/22654170/explanation-of-jsonb-introduced-by-postgresql).
 
 ACs:
 The models should be created with the necessary attributes to store the data from the provided recipes, according to the specification above.
 The seeds file should contain the data from the provided recipes.
+The seeds file should be idempotent, meaning that it should not create duplicated records if run multiple times.
 
 #### User Story: Recipe Suggestions 
 As a user, I want the service to suggest recipes that I can make with the ingredients I have at home.
@@ -74,7 +94,7 @@ UI Mockup:
 (here I would include several mockups of the UI and discuss with the team the best approach)
 
 ACs:
-The user should be able to enter the ingredients they have at home.
+The user should be able to write a list of ingredients they have at home in the input text box.
 When requested, the user should be able to see a recipe that they can make with the selected ingredients.
 The UI should implement the UI mockup provided above.
 
@@ -85,8 +105,8 @@ The UI should implement the UI mockup provided above.
 - I have not used docker or docker-compose for this project, but I would have it in any professional project, at least for the local dev env.
 - I have included the provided recipes as seeds for simplicity. In a real-world scenario, I may have used a different approach such a pre-seeded image of the DB, or a rake task that reads from a CSV, JSON or even starts a web scrapper.
 
-- The Ingredient model is a mess. I would love to separate the quantity and the unit from the ingredient itself. This would allow for more complex queries and better user experience managing ingredients.
-- With the same logic as the above, I would have a separate model for category-like attributes, such as cuisine and category, for better management.
+- Having ingredients in a JSON in the main table fills the purpose of the exercise but it's a mess. I would love to separate the quantity and the unit from the ingredient itself, as this would allow for more complex queries and better user experience managing ingredients. 
+- With the same logic as the above, I would like to have a separate model for category-like attributes, such as cuisine and category, for better management.
 - Implement recipe management for the user. The user should be able to add, remove, or update recipes. Maybe also a favourite recipes feature.
 - The search feature could be improved by using a more advanced search algorithm (maybe Elasticsearch).
 - Allow the user to search for recipes by name, category or other.
