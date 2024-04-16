@@ -105,7 +105,8 @@ Given that I'm using PostgreSQL, let's take advantage of the built-in [text sear
 ACs:
 The user should be able to write a list of ingredients they have at home in the input text box.
 When requested, the user should be able to see a recipe that they can make with the selected ingredients.
-The UI should implement the UI mockup provided above.
+The recipes should contain all the ingredients the user has selected.
+The UI should implement the UI mockup provided above (it should be more detailed based on the mockups).
 
 ## Comments, assumptions, and future work
 - I used Postgres as the DB as it was provided by default by fly.io.
@@ -113,11 +114,10 @@ The UI should implement the UI mockup provided above.
 - In a proper production-focused app, I would have used an API backend and a separate frontend. This improves the scalability and maintainability of the application, and also the separation of tasks in the user stories.
 - I have not used docker or docker-compose for this project, but I would have it in any professional project, at least for the local dev env.
 - I have included the provided recipes as seeds for simplicity. In a real-world scenario, I may have used a different approach such a pre-seeded image of the DB, or a rake task that reads from a CSV, JSON or even starts a web scrapper.
-
 - Having ingredients in a JSON in the main table fills the purpose of the exercise but it's a mess. I would love to separate the quantity and the unit from the ingredient itself, as this would allow for more complex queries and better user experience managing ingredients. 
 - With the same logic as the above, I would like to have a separate model for category-like attributes, such as cuisine and category, for better management.
 - Implement recipe management for the user. The user should be able to add, remove, or update recipes. Maybe also a favourite recipes feature.
 - The search feature could be improved by using a more advanced search algorithm (maybe Elasticsearch).
-- Allow the user to search for recipes by name, category or other.
-- Allow the user to see more than one recipe at a time.
-- Allow the user to add dietary restrictions.
+- We could allow the user to search for recipes by name, category or other.
+- We could allow the user to see more than one recipe at a time.
+- We could allow the user to add dietary restrictions.

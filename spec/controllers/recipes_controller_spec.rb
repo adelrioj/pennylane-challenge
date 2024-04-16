@@ -16,6 +16,7 @@ RSpec.describe RecipesController, type: :controller do
       context 'when more than one recipe is found' do
         let!(:recipe2) { Recipe.create(ingredients: 'chicken, cheese, tomato') }
 
+        # TBD: this test may be flaky. Happy to discuss other solutions.
         it 'returns random recipes with the given ingredients' do
           results = []
           10.times do
