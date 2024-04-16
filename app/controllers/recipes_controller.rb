@@ -10,8 +10,6 @@ class RecipesController < ApplicationController
   def find_random_recipes(ingredients)
     return [] unless ingredients.present?
 
-    [
-      Recipe.by_ingredients(ingredients).limit(8).sample
-    ]
+    [Recipe.by_ingredients(ingredients).limit(8).sample].compact
   end
 end
