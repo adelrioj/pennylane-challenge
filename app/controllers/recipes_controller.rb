@@ -8,6 +8,6 @@ class RecipesController < ApplicationController
   private
 
   def find_recipes(ingredients)
-    Recipe.by_ingredients(ingredients)
+    Recipe.by_ingredients(ingredients).order(:ratings)
   end
 end
