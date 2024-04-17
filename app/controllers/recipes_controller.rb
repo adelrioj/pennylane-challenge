@@ -2,12 +2,12 @@
 
 class RecipesController < ApplicationController
   def index
-    @recipes = find_relevant_recipes(params[:query])
+    @recipes = find_recipes(params[:query]).page params[:page]
   end
 
   private
 
-  def find_relevant_recipes(ingredients)
-    Recipe.by_ingredients(ingredients).limit(8)
+  def find_recipes(ingredients)
+    Recipe.by_ingredients(ingredients)
   end
 end

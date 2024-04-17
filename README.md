@@ -106,10 +106,11 @@ The user should be able to write a list of ingredients they have at home in the 
 When requested, the user should be able to see a recipe that they can make with the selected ingredients.
 The recipes should contain all the ingredients the user has selected.
 The UI should implement the UI mockup provided above (it should be more detailed based on the mockups).
+Must implement pagination, to avoid overloading the server with a large number of recipes.
 
 ## Comments, assumptions, and future work
 - I used Postgres as the DB as it was provided by default by fly.io. To import the recipes, I used the seeds mechanism, but for a production system, I would have used a RecipeImportService/Task.
-- I have not setup any Redis cache for the application for simplicity. In a production environment it's a must. For the same reason, I will not implement any pagination or authentication, or any other mechanism that we would like to have in prod, but it's not relevant for this exercise.
+- I have not setup any Redis cache for the application for simplicity. In a production environment it's a must. For the same reason, I will not implement any authentication, or any other mechanism that we would like to have in prod, but it's not relevant for this exercise.
 - In a proper production-focused app, I would have used an API backend and a separate frontend. This improves the scalability and maintainability of the application, and also the separation of tasks in the user stories.
 - I have not used docker or docker-compose for this project, but I would have it in any professional project, at least for the local dev env.
 - I have included the provided recipes as seeds for simplicity. In a real-world scenario, I may have used a different approach such a pre-seeded image of the DB, or a rake task that reads from a CSV, JSON or even starts a web scrapper.
