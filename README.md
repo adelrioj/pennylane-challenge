@@ -83,7 +83,7 @@ URL that contains the image of the prepared dish.
 should include an id and timestamps.
 
 Dev Hints:
-Use jsonb as the ingredients field type. jsonb takes more time to build and takes more disk space, but it's faster to query thank json. check [here](https://stackoverflow.com/questions/22654170/explanation-of-jsonb-introduced-by-postgresql).
+Use jsonb as the ingredients field type. jsonb takes more time to build and takes more disk space, but it's faster to query than json. check [here](https://stackoverflow.com/questions/22654170/explanation-of-jsonb-introduced-by-postgresql).
 
 ACs:
 The models should be created with the necessary attributes to store the data from the provided recipes, according to the specification above.
