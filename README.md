@@ -92,9 +92,8 @@ The seeds file should be idempotent, meaning that it should not create duplicate
 
 #### User Story: Recipe Suggestions 
 As a user, I want the service to suggest recipes that I can make with the ingredients I have at home.
-To make this possible, we need to implement a search feature that will return the most relevant recipes based on the ingredients the user has in their inventory. 
-This will include the necessary views to make this feature work.
-To preserve performance, we will only show one recipe at a time. The recipe will be randomly selected from the list of recipes that match the user's ingredients.
+To make this possible, we need to implement a search feature that will return the most relevant recipes based on the ingredients the user provides.
+This task includes the necessary changes in the controller, and the creation of the required views.
 
 UI Mockup:
 (here I would include several mockups of the UI and discuss with the team the best approach)
@@ -109,7 +108,7 @@ The recipes should contain all the ingredients the user has selected.
 The UI should implement the UI mockup provided above (it should be more detailed based on the mockups).
 
 ## Comments, assumptions, and future work
-- I used Postgres as the DB as it was provided by default by fly.io.
+- I used Postgres as the DB as it was provided by default by fly.io. To import the recipes, I used the seeds mechanism, but for a production system, I would have used a RecipeImportService/Task.
 - I have not setup any Redis cache for the application for simplicity. In a production environment it's a must. For the same reason, I will not implement any pagination or authentication, or any other mechanism that we would like to have in prod, but it's not relevant for this exercise.
 - In a proper production-focused app, I would have used an API backend and a separate frontend. This improves the scalability and maintainability of the application, and also the separation of tasks in the user stories.
 - I have not used docker or docker-compose for this project, but I would have it in any professional project, at least for the local dev env.

@@ -2,14 +2,12 @@
 
 class RecipesController < ApplicationController
   def index
-    @recipes = find_random_recipes(params[:query])
+    @recipes = find_relevant_recipes(params[:query])
   end
 
   private
 
-  def find_random_recipes(ingredients)
-    return [] unless ingredients.present?
-
-    [Recipe.by_ingredients(ingredients).limit(8).sample].compact
+  def find_relevant_recipes(ingredients)
+    Recipe.by_ingredients(ingredients).limit(8)
   end
 end
